@@ -1,14 +1,12 @@
-const refs = {
-    days: document.querySelector('span[data-value="days"]'),
-    hours: document.querySelector('span[data-value="hours"]'),
-    mins: document.querySelector('span[data-value="mins"]'),
-    secs: document.querySelector('span[data-value="secs"]'),
-}
-
 class CountdownTimer {
-    constructor({onTick, targetDate}) {
+    constructor({selector, targetDate}) {
         this.targetDate = targetDate;
-        this.onTick = onTick;
+        this.selector = document.querySelector(selector);
+
+        this.days = this.selector.querySelector('span[data-value="days"]');
+        this.hours = this.selector.querySelector('span[data-value="hours"]');
+        this.mins = this.selector.querySelector('span[data-value="mins"]');
+        this.secs = this.selector.querySelector('span[data-value="secs"]');
     }
 
     start() {
@@ -16,12 +14,11 @@ class CountdownTimer {
             let showTimer = this.targetDate - Date.now();
 
             if (showTimer < 0) {
-                clearInterval(timerId)
+                clearInterval(timerId);
             }
 
             const time = this.getTimeComponents(showTimer);
-            // console.log(time);
-            this.onTick(time);
+            this.updateClockFront(time);
         }, 1000);
     }
 
@@ -37,24 +34,23 @@ class CountdownTimer {
     pad(val) {
         return String(val).padStart(2, '0');
     }
+
+    updateClockFront(time) {
+        const {days, hours, mins, secs} = time;
+
+        this.days.textContent = days;
+        this.hours.textContent = hours;
+        this.mins.textContent = mins;
+        this.secs.textContent = secs;
+    }
 }
 
 const timer = new CountdownTimer({
-    // selector: "#timer-1",
-    onTick: updateClockFront,
+    selector: "#timer-1",
     targetDate: new Date("Dec 17, 2021"),
 });
 
-timer.start()
-
-function updateClockFront(time) {
-    const {days, hours, mins, secs} = time;
-
-    refs.days.textContent = days;
-    refs.hours.textContent = hours;
-    refs.mins.textContent = mins;
-    refs.secs.textContent = secs;
-}
+timer.start();
 
 
 
