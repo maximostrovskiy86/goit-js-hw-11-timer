@@ -1,0 +1,35 @@
+.timer {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    width: 45%;
+    margin: 0 auto;
+    background-color: #f0f2f1;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 36px;
+
+}
+
+.field + .field {
+    margin-left: 15px;
+}
+
+.label {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #bfbfbe;
+}
+
+.value {
+    padding: 20px 30px;
+    background-color: #3c3d3c;
+    color: #fff;
+    border-radius: 5px;
+}
+
